@@ -1,0 +1,50 @@
+services:
+  backend:
+    image: gef-be
+    restart: always    
+    environment:
+      - "spring.profiles.active=prod"
+    networks:
+      - green-elegant-farmer-network
+    volumes:
+      - /home/deploy/greenelegantfarmer/backend/uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:4002:8080"
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: netset@123
+    healthcheck:
+        test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+        interval: 3s
+        retries: 5
+        start_period: 30s
+    networks:
+      - green-elegant-farmer-network
+    expose:
+        - 3306
+        - 33060
+  frontend:
+      image: gef-fe
+      restart: always
+      networks:
+        - green-elegant-farmer-network
+      depends_on:
+        - backend
+      ports:
+        - "127.0.0.1:4001:80"
+  admin:
+      image: gef-admin
+      restart: always
+      networks:
+        - green-elegant-farmer-network
+      depends_on:
+        - backend
+      ports:
+        - "127.0.0.1:4000:80"
+networks:
+  green-elegant-farmer-network: {}

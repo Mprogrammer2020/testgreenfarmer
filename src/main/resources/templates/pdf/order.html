@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" name="viewport">
+<meta content="ie=edge" http-equiv="X-UA-Compatible">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<title>Invoice - Green Elegant Farmer</title>
+</head>
+<body class="flex items-center justify-center h-screen">
+	<div class="container mt-5 mb-3">
+		<div class="row d-flex justify-content-center">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="d-flex flex-row p-2">
+						<div class="d-flex flex-column">
+							<span class="font-weight-bold">Order ID</span> 
+							<small th:text="${ order.id }">0001</small>
+						</div>
+					</div>
+					<hr>
+					<div class="table-responsive p-2">
+						<table class="table table-borderless">
+							<tbody>
+								<tr class="add">
+									<td class="font-weight-bold">User Details</td>
+								</tr>
+								<tr class="content">
+									<td>
+									 <p th:text="${ order.subscription.user.firstName+' '+order.subscription.user.lastName }">
+									 	Mukesh Sharma
+									 </p>
+									 <p th:text="${ order?.subscription?.user?.addresses[0]?.address+' '
+										+order?.subscription?.user?.addresses[0]?.city+' '
+										+order?.subscription?.user?.addresses[0]?.state+' '
+										+order?.subscription?.user?.addresses[0]?.zipCode }">
+										Netset Software Pvt Ltd. Sector 76, Mohali Punjab 160071	
+									</p>
+										
+									 <p th:text="${ order?.subscription?.user?.phone }">
+									 	+918894820208
+									 </p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<hr>
+					<div class="products p-2">
+						<table class="table table-borderless">
+							<tbody>
+								<tr class="add">
+									<td class="font-weight-bold">Order Details</td>
+								</tr>
+								<tr>
+									<td class="font-weight-bold">Box Type:</td>
+									<td th:text="${ order?.subscription?.box?.name }">Small</td>
+									
+									<td class="font-weight-bold">Box Price:</td>
+									<td th:text="${ '$'+order?.subscription?.box?.price }">$4.0</td>
+								</tr>
+								<tr>
+									<td class="font-weight-bold">Delivery Charges:</td>
+									<td th:text="${ '$'+order?.deliveryFee }">$5.0</td>
+									
+									<td class="font-weight-bold">Order Date:</td>
+									<td th:text="${#temporals.format(order?.orderDate, 'MM-dd-yyyy hh:mm a')}">12-31-2023 10:35 AM</td>
+								</tr>
+								<tr>
+									<td class="font-weight-bold">Delivery Date:</td>
+									<td th:text="${#temporals.format(order?.deliveryDate, 'MM-dd-yyyy')}">12-31-2023</td>
+									
+									<td class="font-weight-bold">Payable Amount:</td>
+									<td th:text="${ '$'+(order?.subscription?.box?.price + order.deliveryFee) }">$9.0</td>
+								</tr>
+								<tr>
+									<td class="font-weight-bold">Delivery Address:</td>
+									<td>
+									 	<p th:text="${ order?.address?.address }">NetSet Software Solutions, 8-A</p>
+									 	<p th:text="${ order?.address?.city+' '+order?.address?.state+' '+order?.address?.zipCode }">
+									 		Industrial Area, Sector 74 Sahibzada Ajit Singh Nagar Punjab 160071
+									 	</p>
+									 </td>
+										
+									<td class="font-weight-bold">Deliverable Frequency:</td>
+									<td th:text="${ order?.subscription?.frequency }">
+										weekly
+									</td>
+								</tr>
+								<tr>
+									<td class="font-weight-bold">Order Status:</td>
+									<td th:switch="${ order?.status }">
+									  <span th:remove="tag" th:case="'INITIATED'">Yet to Deliver</span>
+									  <span th:remove="tag" th:case="'DELIVERED'">Delivered</span>
+									  <span th:remove="tag" th:case="*">NA</span>
+									</td>
+									
+									<td class="font-weight-bold">Total Products:</td>
+									<td th:text="${ order?.items.size() }">7</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<hr>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

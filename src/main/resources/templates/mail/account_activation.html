@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<div style="margin: 0 auto; justify-content: center;">
+		<div style="width: 100%; text-align: center; width: 100%; border-radius: 10px; overflow: hidden; height: initial; margin: 0 auto; margin-top: 50px;">
+			<div style="text-align: center; width: 500px; margin: 0 auto; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;margin-bottom: 20px;">
+				<div style="background: #9cbb69; text-align: center; padding: 12px 0;">
+					<img src="https://greenelegant-app.ecomempire.in/assets/images/logo.png" style="width: 90px;"/>
+				</div>
+				<div style="text-align: left; padding: 10px 20px 20px 20px;">
+					<div style="margin: 0; padding: 0; font-size: 18px; color: #000000bf; letter-spacing: 0; font-family: Roboto, Helvetica,Arial,sans-serif">
+						<p style="padding-bottom: 0;" th:text="${ 'Hi '+user.firstName+',' }">Hi name,</p>
+						<p style="padding-bottom: 10px;">You are registered as Sub Admin with Green Elegant Farmer. Here are your login credentials:</p>
+						
+						<div style="margin-bottom: 15px;">
+							<p style="line-height: 0px;" th:text="${ 'Email: '+user.email }">Email: [user email]</p>
+							<p  th:text="${ 'Password: '+password }">Password: 12345678</p>
+						</div>
+						<p style="line-height: 15px;padding-bottom: 30px;">Login Link : <a style="color: #9cbb69;font-size: 18px;" href="https://greenelegant-console.ecomempire.in">Click Here</a> </p>
+						<p style="line-height: 15px;">Regards,</p>
+						<p style="line-height: 0px;">Green Elegant Farmer Team</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
